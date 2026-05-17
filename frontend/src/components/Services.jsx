@@ -190,7 +190,7 @@ function Services() {
   }, [controls])
 
   return (
-    <section id="services" className="flex min-h-screen w-full flex-col justify-center bg-[#0a0a0a] py-[6rem] overflow-hidden scroll-mt-16" >
+    <section id="services" className="flex min-h-screen w-full flex-col justify-center bg-transparent py-[6rem] overflow-hidden scroll-mt-16" >
       <div className="mx-auto flex w-full max-w-[1440px] flex-col text-center" style={{ marginBottom: '8rem' }}>
 
         {/* Header Section */}

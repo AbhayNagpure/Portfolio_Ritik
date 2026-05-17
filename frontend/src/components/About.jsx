@@ -56,7 +56,7 @@ function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative flex min-h-screen w-full flex-col justify-center overflow-hidden bg-[#0a0a0a]"
+      className="relative flex min-h-screen w-full flex-col justify-center overflow-hidden bg-transparent"
       style={{ padding: 'clamp(4rem, 8vw, 8rem) clamp(1.5rem, 6vw, 6rem)' }}
     >
       {/* ── Subtle radial gold glow — top left ─────────────── */}

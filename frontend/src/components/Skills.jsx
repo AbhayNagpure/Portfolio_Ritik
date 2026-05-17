@@ -51,7 +51,7 @@ function Skills() {
   return (
     <section
       id="skills"
-      className="relative flex w-full flex-col justify-start bg-[#0a0a0a] scroll-mt-0 border-t border-white/5"
+      className="relative flex w-full flex-col justify-start bg-transparent scroll-mt-0 border-t border-white/5"
       style={{ padding: 'clamp(4rem, 6vw, 7rem) clamp(1.5rem, 5vw, 5rem)' }}
     >
       <div className="relative mx-auto max-w-[1440px] w-full px-4 md:px-10 lg:px-16">

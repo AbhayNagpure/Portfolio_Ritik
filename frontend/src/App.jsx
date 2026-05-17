@@ -10,7 +10,7 @@ import './index.css'
 function App() {
   return (
     <>
-      <main className="min-h-screen bg-[#0a0a0a] text-white flex flex-col justify-between">
+      <main className="min-h-screen bg-transparent text-white flex flex-col justify-between">
         <div>
           <Navbar />
           <Hero />
@@ -22,7 +22,7 @@ function App() {
         </div>
 
         {/* Footer Text */}
-        <footer className="w-full py-8 text-center border-t border-white/5 bg-[#0a0a0a]">
+        <footer className="w-full py-8 text-center border-t border-white/5 bg-transparent">
           <p className="font-['Inter'] text-xs sm:text-sm font-light text-white/30 tracking-wider">
             &copy; {new Date().getFullYear()} CRAFTER PRODUCTION. ALL RIGHTS RESERVED.
           </p>
