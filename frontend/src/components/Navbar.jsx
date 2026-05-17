@@ -27,7 +27,7 @@ function Navbar() {
       transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
       className="fixed top-0 left-0 w-full z-50 transition-all duration-500"
       style={{
-        backgroundColor: scrolled ? 'rgba(10, 10, 10, 0.85)' : 'transparent',
+        backgroundColor: 'transparent',
         backdropFilter: scrolled ? 'blur(12px)' : 'none',
         WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
         borderBottom: scrolled

@@ -194,7 +194,7 @@ function Services() {
       <div className="mx-auto flex w-full max-w-[1440px] flex-col text-center" style={{ marginBottom: '8rem' }}>
 
         {/* Header Section */}
-        <div className="flex flex-col items-center" style={{ marginBottom: '2rem' }}>
+        <div className="flex flex-col items-center" style={{ marginBottom: '2rem', marginLeft: '6rem' }}>
           <motion.span
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -244,7 +244,7 @@ function Services() {
         </div>
 
         {/* Navigation Arrows Bottom Center */}
-        <div className="flex justify-center gap-6" style={{ marginTop: '1rem' }}>
+        <div className="flex justify-center gap-6" style={{ marginTop: '1rem', marginLeft: '6rem' }}>
           <button
             onClick={() => slide('left')}
             className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-2xl text-white transition-all hover:border-[#D4AF37] hover:bg-[#D4AF37]/5 hover:text-[#D4AF37]"
