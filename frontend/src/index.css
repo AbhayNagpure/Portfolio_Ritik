@@ -15,7 +15,6 @@ body {
   color: #ffffff;
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
-  cursor: none;
 }
 
 ::-webkit-scrollbar {
@@ -29,4 +28,9 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #D4AF37;
   border-radius: 2px;
+}
+
+/* Nav link hover underline */
+.nav-link:hover span {
+  width: 100%;
 }
