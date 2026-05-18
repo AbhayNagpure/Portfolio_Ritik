@@ -53,7 +53,7 @@ router.post('/', async (req, res) => {
 
   } catch (error) {
     console.error('Error in contact route:', error);
-    res.status(500).json({ success: false, message: 'Failed to submit form. Please try again later.' });
+    res.status(500).json({ success: false, message: 'Failed to submit form. Please try again later.', error: error.message, stack: error.stack });
   }
 });
 
