@@ -71,7 +71,7 @@ function About() {
       />
 
       {/* ── Two-column grid ────────────────────────────────── */}
-      <div className="relative mx-auto flex max-w-[1440px] flex-col gap-0 lg:flex-row lg:gap-60">
+      <div className="relative mx-auto flex max-w-[1440px] flex-col gap-12 lg:flex-row lg:gap-60">
 
         {/* ─── Left column (40%) ───────────────────────────── */}
         <motion.div

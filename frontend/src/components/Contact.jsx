@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 
 const PhoneIcon = () => (
@@ -21,13 +22,51 @@ const MailIcon = () => (
   </svg>
 )
 
+const WhatsAppIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+  </svg>
+)
+
 const CONTACT_IMAGE = "/assets/contact-profile.jpg"
 
 function Contact() {
-  const handleSubmit = (e) => {
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' })
+  const [status, setStatus] = useState({ type: '', message: '' })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Simulated form submission
-    alert('Thank you for your inquiry! Ritik will get back to you shortly.')
+    setIsSubmitting(true)
+    setStatus({ type: '', message: '' })
+
+    try {
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setStatus({ type: 'success', message: 'Thank you! Your message has been sent successfully.' })
+        setFormData({ name: '', email: '', message: '' })
+      } else {
+        setStatus({ type: 'error', message: data.message || 'Something went wrong. Please try again.' })
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      setStatus({ type: 'error', message: 'Failed to connect to the server. Please try again later.' })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -99,7 +138,7 @@ function Contact() {
             </motion.div>
 
             {/* Quick Contact Buttons */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 w-full">
               {/* Phone */}
               <motion.a
                 href="tel:+918817195771"
@@ -114,6 +153,26 @@ function Contact() {
                 </div>
                 <div className="text-left overflow-hidden">
                   <h4 className="font-['Inter'] text-[8px] font-light text-white/40 truncate uppercase tracking-wider">Phone</h4>
+                  <p className="font-['Inter'] text-[#D4AF37] text-[10px] font-medium tracking-wide truncate">+91 8817195771</p>
+                </div>
+              </motion.a>
+
+              {/* WhatsApp */}
+              <motion.a
+                href="https://wa.me/918817195771"
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false, margin: '-50px' }}
+                transition={{ duration: 0.5, delay: 0.35 }}
+                className="group flex items-center gap-2.5 p-2.5 rounded-xl border border-white/5 bg-white/[0.02] backdrop-blur-sm transition-all duration-300 hover:border-[#D4AF37]/50 hover:bg-white/[0.06]"
+              >
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#D4AF37]/10 text-[#D4AF37] transition-transform duration-300 group-hover:scale-105">
+                  <WhatsAppIcon />
+                </div>
+                <div className="text-left overflow-hidden">
+                  <h4 className="font-['Inter'] text-[8px] font-light text-white/40 truncate uppercase tracking-wider">WhatsApp</h4>
                   <p className="font-['Inter'] text-[#D4AF37] text-[10px] font-medium tracking-wide truncate">+91 8817195771</p>
                 </div>
               </motion.a>
@@ -170,11 +229,20 @@ function Contact() {
             </div>
 
             <form onSubmit={handleSubmit} className=" flex flex-col gap-10 w-full text-left " style={{ marginTop: '2.2rem' }}>
+              {status.message && (
+                <div className={`p-4 rounded-xl text-sm font-['Inter'] ${status.type === 'success' ? 'bg-green-500/10 text-green-400 border border-green-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
+                  {status.message}
+                </div>
+              )}
+
               <div className="flex flex-col gap-10">
                 {/* Name */}
                 <div className="flex flex-col w-[100%]">
                   <input
                     type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
                     required
                     placeholder="John Doe"
                     className="w-full bg-transparent border-0 border-b border-white/15 px-0 py-6 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#D4AF37] transition-colors"
@@ -185,6 +253,9 @@ function Contact() {
                 <div className="flex flex-col ">
                   <input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     required
                     placeholder="john@example.com"
                     className="w-full bg-transparent border-0 border-b border-white/15 px-0 py-30 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#D4AF37] transition-colors resize-none"
@@ -195,8 +266,10 @@ function Contact() {
               {/* Message */}
               <div className="flex flex-col ">
                 <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   required
-
                   placeholder="Tell me about your vision, timeline, and what you're looking for..."
                   className="w-full bg-transparent border-0 border-b border-white/15 px-0 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#D4AF37] transition-colors resize-none"
                 />
@@ -207,9 +280,10 @@ function Contact() {
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
                 type="submit"
-                className="w-full mt-2 bg-[#D4AF37] hover:bg-[#c29f2e] text-[#0a0a0a] font-['Inter'] text-1xl font-semibold tracking-wider uppercase py-4 rounded-xl transition-colors duration-300 shadow-lg shadow-[#D4AF37]/10"
+                disabled={isSubmitting}
+                className={`w-full mt-2 bg-[#D4AF37] hover:bg-[#c29f2e] text-[#0a0a0a] font-['Inter'] text-1xl font-semibold tracking-wider uppercase py-4 rounded-xl transition-colors duration-300 shadow-lg shadow-[#D4AF37]/10 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
-                Send Message
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </motion.button>
             </form>
           </div>

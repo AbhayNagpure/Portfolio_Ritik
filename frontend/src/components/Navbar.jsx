@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { Menu } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Menu, X } from 'lucide-react'
 
-const NAV_LINKS = ['Home', 'About', 'Services', 'Skills', 'Contact']
+const NAV_LINKS = ['Home', 'About', 'Services', 'Projects', 'Skills', 'Contact']
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
@@ -18,6 +19,7 @@ function Navbar() {
       e.preventDefault()
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
+    setIsOpen(false)
   }
 
   return (
@@ -35,25 +37,25 @@ function Navbar() {
           : '1px solid transparent',
       }}
     >
-      <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-10 py-5 md:px-20">
+      <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-6 py-5 md:px-20">
 
-        {/* ── Logo — left, pushed inward ─────────────────────── */}
-        <a href="#" className="shrink-0 select-none " style={{ marginLeft: "75px" }}>
+        {/* ── Logo ─────────────────────────────────────────────── */}
+        <a href="#" className="shrink-0 select-none ml-4 md:ml-6">
           <span
             className="font-['Bebas_Neue'] font-normal tracking-wider text-white"
-            style={{ fontSize: '2.3rem' }}
+            style={{ fontSize: '1.3rem' }}
           >
             CRAFTER
           </span>
           <span
             className="font-['Bebas_Neue'] font-normal tracking-wider text-[#D4AF37]"
-            style={{ fontSize: '2.3rem' }}
+            style={{ fontSize: '1.3rem' }}
           >
             {' '}PRODUCTION
           </span>
         </a>
 
-        {/* ── Nav links — pushed to right ────────────────────── */}
+        {/* ── Nav links — desktop only ─────────────────────────── */}
         <ul className="hidden items-center gap-10 md:flex">
           {NAV_LINKS.map((link) => (
             <li key={link}>
@@ -73,11 +75,52 @@ function Navbar() {
         <button
           type="button"
           className="text-[#D4AF37] md:hidden"
-          aria-label="Open menu"
+          aria-label="Toggle menu"
+          onClick={() => setIsOpen(prev => !prev)}
         >
-          <Menu size={24} strokeWidth={1.5} />
+          {isOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
         </button>
       </div>
+
+      {/* ── Mobile Dropdown Menu ─────────────────────────────── */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden md:hidden"
+            style={{
+              backgroundColor: 'rgba(10,10,10,0.97)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              borderTop: '1px solid rgba(212,175,55,0.15)',
+              borderBottom: '1px solid rgba(212,175,55,0.15)',
+            }}
+          >
+            <ul className="flex flex-col items-center gap-0 py-2">
+              {NAV_LINKS.map((link, i) => (
+                <motion.li
+                  key={link}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.06, duration: 0.3 }}
+                  className="w-full"
+                >
+                  <a
+                    href={link === 'Home' ? '#' : `#${link.toLowerCase()}`}
+                    onClick={(e) => handleNavClick(e, link)}
+                    className="block w-full py-4 text-center font-['Inter'] text-xs font-medium uppercase tracking-[0.25em] text-white/80 transition-colors duration-300 hover:text-[#D4AF37]"
+                  >
+                    {link}
+                  </a>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   )
 }
