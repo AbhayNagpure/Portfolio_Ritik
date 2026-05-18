@@ -64,7 +64,7 @@ function ServiceCard({ item, index, isPlaying, onTogglePlay }) {
         <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
           <div className="absolute inset-0 bg-[#0a0a0a]/20 z-10 pointer-events-none" />
           <iframe
-            src={`https://www.youtube.com/embed/${item.youtubeId}?autoplay=1&mute=${/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) ? 1 : 0}&controls=1&loop=1&playlist=${item.youtubeId}&playsinline=1`}
+            src={`https://www.youtube.com/embed/${item.youtubeId}?autoplay=1&mute=0&controls=1&loop=1&playlist=${item.youtubeId}&playsinline=1`}
             className="absolute top-1/2 left-1/2 w-[300%] h-[300%] -translate-x-1/2 -translate-y-1/2 opacity-90 object-cover scale-[1.1]"
             style={{ border: 'none' }}
             allow="autoplay; encrypted-media"
