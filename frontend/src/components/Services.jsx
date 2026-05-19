@@ -47,26 +47,52 @@ const servicesData = [
 ]
 
 function ServiceCard({ item, index, isPlaying, onTogglePlay }) {
+  const handleToggle = () => {
+    const iframe = document.getElementById(`youtube-iframe-${index}`)
+    if (iframe && iframe.contentWindow) {
+      if (!isPlaying) {
+        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*')
+      } else {
+        iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*')
+      }
+    }
+    
+    // Also pause all other iframes
+    if (!isPlaying) {
+      servicesData.forEach((_, i) => {
+        if (i !== index) {
+          const otherIframe = document.getElementById(`youtube-iframe-${i}`)
+          if (otherIframe && otherIframe.contentWindow) {
+            otherIframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*')
+          }
+        }
+      })
+    }
+
+    onTogglePlay()
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false, margin: "-50px" }}
       transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
-      onTap={onTogglePlay}
-      className={`service-card-item snap-center group relative flex h-[460px] w-[85vw] flex-shrink-0 flex-col items-center justify-between overflow-hidden rounded-3xl border bg-[#111111] pt-12 px-10 pb-16 text-center transition-all duration-300 md:w-[35vw] lg:w-[22vw] cursor-pointer ${isPlaying
+      onClick={handleToggle}
+      className={`service-card-item snap-center group relative flex h-[460px] w-[85vw] flex-shrink-0 flex-col items-center justify-between overflow-hidden rounded-3xl border bg-[#111111] pt-12 px-10 pb-16 text-center transition-all duration-300 sm:w-[350px] lg:w-[400px] cursor-pointer ${isPlaying
         ? 'border-[#D4AF37]/50 shadow-[0_10px_40px_rgba(212,175,55,0.15)]'
         : 'border-white/5'
         }`}
     >
       {/* Background YouTube Video on Tap */}
-      {item.youtubeId && isPlaying && (
-        <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
+      {item.youtubeId && (
+        <div className={`absolute inset-0 w-full h-full overflow-hidden z-0 transition-opacity duration-500 ${isPlaying ? 'opacity-100' : 'opacity-0'}`}>
           <div className="absolute inset-0 bg-[#0a0a0a]/20 z-10 pointer-events-none" />
           <iframe
-            src={`https://www.youtube.com/embed/${item.youtubeId}?autoplay=1&mute=0&controls=1&loop=1&playlist=${item.youtubeId}&playsinline=1`}
+            id={`youtube-iframe-${index}`}
+            src={`https://www.youtube.com/embed/${item.youtubeId}?enablejsapi=1&autoplay=0&mute=0&controls=0&loop=1&playlist=${item.youtubeId}&playsinline=1`}
             className="absolute top-1/2 left-1/2 w-[300%] h-[300%] -translate-x-1/2 -translate-y-1/2 opacity-90 object-cover scale-[1.1]"
-            style={{ border: 'none' }}
+            style={{ border: 'none', pointerEvents: 'none' }}
             allow="autoplay; encrypted-media"
             allowFullScreen
             title={item.title}
@@ -176,17 +202,50 @@ function Services() {
   const [scrollPadding, setScrollPadding] = useState('0px')
   const totalCards = servicesData.length
 
-  // Calculate padding so cards snap to perfect viewport center
+  // Smoothly center a card
+  const goToIndex = (index, keepActive = false, smooth = true) => {
+    if (!carouselRef.current) return
+    const container = carouselRef.current
+    const card = container.querySelector('.service-card-item')
+    if (!card) return
+
+    const cardWidth = card.clientWidth
+    const gap = 32
+    const step = cardWidth + gap
+
+    container.scrollTo({
+      left: index * step,
+      behavior: smooth ? 'smooth' : 'auto'
+    })
+
+    setCurrentIndex(index)
+    if (!keepActive) {
+      setActivePlayingIndex(null)
+    }
+  }
+
+  // Calculate padding so cards snap to perfect container center
   useEffect(() => {
     const updatePadding = () => {
-      const vw = window.innerWidth
-      let cardWidth = '85vw'
-      if (vw >= 1024) cardWidth = '22vw'
-      else if (vw >= 768) cardWidth = '35vw'
-      setScrollPadding(`calc(50vw - (${cardWidth} / 2))`)
+      if (!carouselRef.current) return
+      const card = carouselRef.current.querySelector('.service-card-item')
+      if (card) {
+        const halfWidth = card.clientWidth / 2
+        setScrollPadding(`calc(50% - ${halfWidth}px)`)
+      }
     }
-    updatePadding()
+    setTimeout(updatePadding, 50)
     window.addEventListener('resize', updatePadding)
+
+    // Center on the 3rd or 4th card initially based on screen size
+    setTimeout(() => {
+      const vw = window.innerWidth
+      let initialIndex = 2 // 3rd card default
+      if (vw >= 1024) initialIndex = 2 // Desktop
+      
+      goToIndex(initialIndex, false, false)
+    }, 100)
+
     return () => window.removeEventListener('resize', updatePadding)
   }, [])
 
@@ -209,34 +268,12 @@ function Services() {
     }
   }
 
-  // Smoothly center a card
-  const goToIndex = (index, keepActive = false) => {
-    if (!carouselRef.current) return
-    const container = carouselRef.current
-    const card = container.querySelector('.service-card-item')
-    if (!card) return
-
-    const cardWidth = card.clientWidth
-    const gap = 32
-    const step = cardWidth + gap
-
-    container.scrollTo({
-      left: index * step,
-      behavior: 'smooth'
-    })
-
-    setCurrentIndex(index)
-    if (!keepActive) {
-      setActivePlayingIndex(null)
-    }
-  }
-
   const slide = (direction) => {
     goToIndex(direction === 'left' ? currentIndex - 1 : currentIndex + 1)
   }
 
   return (
-    <section id="services" className="flex min-h-screen w-full flex-col justify-center bg-transparent py-[6rem] overflow-hidden scroll-mt-16" >
+    <section id="services" className="flex min-h-screen w-full flex-col items-center justify-center bg-transparent py-16 md:py-24 overflow-hidden scroll-mt-16" >
       <div className="mx-auto flex w-full max-w-[1440px] flex-col text-center" style={{ marginBottom: '8rem' }}>
 
         {/* Header Section */}

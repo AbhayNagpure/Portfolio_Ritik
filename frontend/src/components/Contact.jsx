@@ -59,7 +59,8 @@ function Contact() {
         setStatus({ type: 'success', message: 'Thank you! Your message has been sent successfully.' })
         setFormData({ name: '', email: '', message: '' })
       } else {
-        setStatus({ type: 'error', message: data.message || 'Something went wrong. Please try again.' })
+        const errorMsg = data.error ? `${data.message} (${data.error})` : (data.message || 'Something went wrong. Please try again.')
+        setStatus({ type: 'error', message: errorMsg })
       }
     } catch (error) {
       console.error('Error submitting form:', error)
@@ -72,8 +73,8 @@ function Contact() {
   return (
     <section
       id="contact"
-      className="relative flex min-h-screen w-full flex-col justify-center overflow-hidden bg-transparent scroll-mt-0 border-t border-white/5"
-      style={{ padding: 'clamp(3rem, 6vw, 6rem) clamp(1.5rem, 6vw, 6rem)' }}
+      className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-transparent scroll-mt-0 border-t border-white/5"
+      style={{ padding: 'clamp(3rem, 6vw, 6rem) clamp(1rem, 6vw, 6rem)' }}
     >
       <div className="relative mx-auto max-w-[1440px] w-full px-6 md:px-12">
         {/* Top Header */}

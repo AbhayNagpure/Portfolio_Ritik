@@ -56,8 +56,8 @@ function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative flex min-h-screen w-full flex-col justify-center overflow-hidden bg-transparent"
-      style={{ padding: 'clamp(4rem, 8vw, 8rem) clamp(1.5rem, 6vw, 6rem)' }}
+      className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-transparent"
+      style={{ padding: 'clamp(3rem, 8vw, 8rem) clamp(1rem, 6vw, 6rem)' }}
     >
       {/* ── Subtle radial gold glow — top left ─────────────── */}
       <div
@@ -71,14 +71,14 @@ function About() {
       />
 
       {/* ── Two-column grid ────────────────────────────────── */}
-      <div className="relative mx-auto flex max-w-[1440px] flex-col gap-12 lg:flex-row lg:gap-60">
+      <div className="relative mx-auto flex w-full max-w-[1440px] flex-col lg:flex-row lg:justify-between lg:items-center gap-12 lg:gap-20 xl:gap-32">
 
-        {/* ─── Left column (40%) ───────────────────────────── */}
+        {/* ─── Left column (50%) ───────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, x: -60 }}
           animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -60 }}
           transition={{ duration: 0.9, ease: easeOut }}
-          className="flex flex-col gap-10 lg:w-[40%] lg:pr-16"
+          className="flex flex-col gap-10 lg:w-[45%] xl:w-[45%]"
         >
           {/* Gold label */}
           <p className="font-['Inter'] text-xs font-medium uppercase tracking-[0.42em] text-[#D4AF37]">
@@ -87,7 +87,7 @@ function About() {
 
           {/* Heading */}
           <h2
-            className="text-[clamp(2.4rem,5vw,3.8rem)] font-bold leading-[1.1] text-white"
+            className="text-[clamp(2rem,6vw,4rem)] font-bold leading-[1.1] text-white"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
             Crafting Stories
@@ -104,12 +104,12 @@ function About() {
         </motion.div>
 
 
-        {/* ─── Right column (60%) ──────────────────────────── */}
+        {/* ─── Right column (50%) ──────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, x: 60 }}
           animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 60 }}
           transition={{ duration: 0.9, delay: 0.15, ease: easeOut }}
-          className="flex flex-col items-start text-left gap-8 lg:w-[40%] lg:pl-16"
+          className="flex flex-col items-start text-left gap-8 lg:w-[50%] xl:w-[50%]"
         >
           {/* Profile Header (Circular Image beside Name & Title) */}
           <div className="flex items-center gap-6">

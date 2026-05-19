@@ -15,9 +15,14 @@ function Navbar() {
   }, [])
 
   const handleNavClick = (e, link) => {
+    e.preventDefault()
     if (link === 'Home') {
-      e.preventDefault()
       window.scrollTo({ top: 0, behavior: 'smooth' })
+    } else {
+      const element = document.getElementById(link.toLowerCase())
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
     }
     setIsOpen(false)
   }
@@ -90,12 +95,11 @@ function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden md:hidden"
+            className="overflow-hidden md:hidden w-full absolute top-full left-0"
             style={{
               backgroundColor: 'rgba(10,10,10,0.97)',
               backdropFilter: 'blur(16px)',
               WebkitBackdropFilter: 'blur(16px)',
-              borderTop: '1px solid rgba(212,175,55,0.15)',
               borderBottom: '1px solid rgba(212,175,55,0.15)',
             }}
           >

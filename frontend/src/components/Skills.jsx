@@ -51,8 +51,8 @@ function Skills() {
   return (
     <section
       id="skills"
-      className="relative flex w-full flex-col justify-start bg-transparent scroll-mt-0 border-t border-white/5"
-      style={{ padding: 'clamp(4rem, 6vw, 7rem) clamp(1.5rem, 5vw, 5rem)' }}
+      className="relative flex w-full flex-col items-center justify-start bg-transparent scroll-mt-0 border-t border-white/5"
+      style={{ padding: 'clamp(4rem, 6vw, 7rem) clamp(1rem, 5vw, 5rem)' }}
     >
       <div className="relative mx-auto max-w-[1440px] w-full px-4 md:px-10 lg:px-16">
         {/* Top Header */}
@@ -130,7 +130,7 @@ function Skills() {
 
           {/* Right Column: Tools of the Craft */}
           <div className="lg:col-span-6 flex flex-col gap-6 bg-white/[0.02] border border-white/5 rounded-3xl p-6 md:p-8 w-full shadow-xl">
-            <div className="text-left mb-2">
+            <div className="text-center mb-2">
               <h3 className="font-['Inter'] text-xl font-semibold text-white mb-2">
                 Tools of the Craft
               </h3>

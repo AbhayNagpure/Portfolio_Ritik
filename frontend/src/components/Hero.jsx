@@ -80,7 +80,7 @@ function Hero() {
       <NoiseOverlay />
 
       {/* ── Content ──────────────────────────────────────────── */}
-      <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-center gap-10">
+      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col items-center gap-10">
 
         {/* Gold label */}
         <motion.p
@@ -93,7 +93,7 @@ function Hero() {
         </motion.p>
 
         {/* Heading */}
-        <h1 className="text-[clamp(4rem,10vw,10rem)] font-black leading-[0.92] tracking-normal text-white" style={{ fontFamily: "'Playfair Display', serif" }}>
+        <h1 className="text-[clamp(3rem,10vw,10rem)] font-black leading-[0.92] tracking-normal text-white" style={{ fontFamily: "'Playfair Display', serif" }}>
           <motion.span
             ref={line1Ref}
             initial={{ opacity: 0, x: -90 }}

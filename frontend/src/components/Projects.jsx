@@ -39,7 +39,7 @@ function Projects() {
   const [playingVideoId, setPlayingVideoId] = useState(null)
 
   return (
-    <section id="projects" className="relative flex min-h-screen w-full flex-col items-center justify-center bg-transparent py-[6rem] scroll-mt-0 border-t border-white/5">
+    <section id="projects" className="relative flex min-h-screen w-full flex-col items-center justify-center bg-transparent py-16 md:py-24 scroll-mt-0 border-t border-white/5">
       <div className="mx-auto flex w-full max-w-[1440px] flex-col px-6 md:px-12 gap-10">
 
         {/* Header */}
