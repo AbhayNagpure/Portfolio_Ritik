@@ -6,32 +6,32 @@ const projectsData = [
   {
     id: 'kBLA8qoySxw',
     title: 'Cinematic Wedding Film',
-    category: 'Wedding',
+    category: 'wedding highlight',
   },
   {
     id: 'tOzeT1M-UTU',
     title: 'Pre-Wedding Highlight',
-    category: 'Highlight',
+    category: 'wedding highlight',
   },
   {
     id: 'KVaz52AA3T0',
     title: 'Same-Day Edit (SDE)',
-    category: 'SDE',
+    category: 'wedding highlight',
   },
   {
     id: '-0DRCtDstTk',
     title: 'Wedding Teaser / Trailer',
-    category: 'Teaser',
+    category: 'wedding highlight',
   },
   {
     id: 'xEUhY6e0slo',
     title: 'Instagram & Reels Edit',
-    category: 'Reels',
+    category: 'wedding teaser',
   },
   {
     id: 'PoQqR07nhyI',
     title: 'Full Wedding Documentary',
-    category: 'Documentary',
+    category: 'pre wedding teaser',
   },
 ]
 
@@ -39,7 +39,7 @@ function Projects() {
   const [playingVideoId, setPlayingVideoId] = useState(null)
 
   return (
-    <section id="projects" className="relative flex min-h-screen w-full flex-col items-center justify-center bg-transparent py-16 md:py-24 scroll-mt-0 border-t border-white/5">
+    <section id="projects" className="relative flex min-h-screen w-full flex-col items-center justify-center bg-transparent py-16 md:py-24 scroll-mt-3 border-t border-white/5">
       <div className="mx-auto flex w-full max-w-[1440px] flex-col px-6 md:px-12 gap-10">
 
         {/* Header */}
@@ -98,7 +98,7 @@ function Projects() {
                   </div>
 
                   {/* Lifted Text Container */}
-                  <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/90 via-black/60 to-transparent px-6 pb-8 pt-20 z-20 translate-y-2 transition-transform duration-300 group-hover:translate-y-0 pointer-events-none">
+                  <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/90 via-black/60 to-transparent px-8 pb-6 pt-20 z-20 pointer-events-none">
                     <span className="text-[#D4AF37] text-[10px] font-['Inter'] uppercase tracking-[0.2em] mb-2 block font-semibold">
                       {project.category}
                     </span>

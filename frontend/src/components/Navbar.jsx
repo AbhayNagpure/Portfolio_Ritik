@@ -21,7 +21,11 @@ function Navbar() {
     } else {
       const element = document.getElementById(link.toLowerCase())
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
+        if (link.toLowerCase() === 'contact') {
+          element.scrollIntoView({ behavior: 'smooth', block: 'end' })
+        } else {
+          element.scrollIntoView({ behavior: 'smooth' })
+        }
       }
     }
     setIsOpen(false)

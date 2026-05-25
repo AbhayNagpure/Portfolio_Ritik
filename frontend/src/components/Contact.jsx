@@ -74,11 +74,11 @@ function Contact() {
     <section
       id="contact"
       className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-transparent scroll-mt-0 border-t border-white/5"
-      style={{ padding: 'clamp(3rem, 6vw, 6rem) clamp(1rem, 6vw, 6rem)' }}
+      style={{ padding: 'clamp(2rem, 4vw, 4rem) clamp(1rem, 6vw, 6rem)' }}
     >
       <div className="relative mx-auto max-w-[1440px] w-full px-6 md:px-12">
         {/* Top Header */}
-        <div className="flex flex-col items-center text-center" style={{ marginBottom: '50px' }}>
+        <div className="flex flex-col items-center text-center" style={{ marginBottom: '30px' }}>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -229,14 +229,14 @@ function Contact() {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className=" flex flex-col gap-10 w-full text-left " style={{ marginTop: '2.2rem' }}>
+            <form onSubmit={handleSubmit} className=" flex flex-col gap-6 w-full text-left " style={{ marginTop: '1.5rem' }}>
               {status.message && (
                 <div className={`p-4 rounded-xl text-sm font-['Inter'] ${status.type === 'success' ? 'bg-green-500/10 text-green-400 border border-green-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
                   {status.message}
                 </div>
               )}
 
-              <div className="flex flex-col gap-10">
+              <div className="flex flex-col gap-6">
                 {/* Name */}
                 <div className="flex flex-col w-[100%]">
                   <input
@@ -246,7 +246,7 @@ function Contact() {
                     onChange={handleChange}
                     required
                     placeholder="John Doe"
-                    className="w-full bg-transparent border-0 border-b border-white/15 px-0 py-6 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#D4AF37] transition-colors"
+                    className="w-full bg-transparent border-0 border-b border-white/15 px-0 py-4 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#D4AF37] transition-colors"
                   />
                 </div>
 
@@ -259,7 +259,7 @@ function Contact() {
                     onChange={handleChange}
                     required
                     placeholder="john@example.com"
-                    className="w-full bg-transparent border-0 border-b border-white/15 px-0 py-30 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#D4AF37] transition-colors resize-none"
+                    className="w-full bg-transparent border-0 border-b border-white/15 px-0 py-4 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#D4AF37] transition-colors resize-none"
                   />
                 </div>
               </div>
