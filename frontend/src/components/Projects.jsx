@@ -99,11 +99,8 @@ function Projects() {
 
                   {/* Lifted Text Container */}
                   <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/90 via-black/60 to-transparent px-8 pb-6 pt-20 z-20 pointer-events-none">
-                    <span className="text-[#D4AF37] text-[10px] font-['Inter'] uppercase tracking-[0.2em] mb-2 block font-semibold">
-                      {project.category}
-                    </span>
                     <h3 className="text-white text-xl font-semibold leading-tight font-['Playfair_Display']">
-                      {project.title}
+                      {project.category}
                     </h3>
                   </div>
                 </>
