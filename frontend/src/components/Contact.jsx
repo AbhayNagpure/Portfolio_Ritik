@@ -45,7 +45,8 @@ function Contact() {
     setStatus({ type: '', message: '' })
 
     try {
-      const response = await fetch('https://portfolio-ritik-w2fq.onrender.com/api/contact', {
+      const apiUrl = import.meta.env.DEV ? 'http://localhost:5000/api/contact' : 'https://portfolio-ritik-w2fq.onrender.com/api/contact';
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

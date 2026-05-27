@@ -20,7 +20,9 @@ router.post('/', async (req, res) => {
     // 2. Setup Nodemailer transporter (ONLY if password is provided)
     if (process.env.EMAIL_PASS && process.env.EMAIL_PASS !== 'your_16_character_app_password_here') {
       const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true, // Use SSL to prevent connection timeouts on cloud providers
         auth: {
           user: process.env.EMAIL_USER,
           pass: process.env.EMAIL_PASS
@@ -44,7 +46,11 @@ router.post('/', async (req, res) => {
       };
 
       // 4. Send email
-      await transporter.sendMail(mailOptions);
+      try {
+        await transporter.sendMail(mailOptions);
+      } catch (emailError) {
+        console.error('Failed to send email notification:', emailError);
+      }
     } else {
       console.log('Skipped sending email because EMAIL_PASS is not configured yet. Data was still saved to MongoDB.');
     }
